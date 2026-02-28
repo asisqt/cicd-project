@@ -1,40 +1,29 @@
-# CI/CD Tools and Practices Final Project Template
+# Automated CI/CD Pipeline Implementation
 
-This repository contains the template to be used for the Final Project for the Coursera course **CI/CD Tools and Practices**.
+## Project Overview
+This repository contains the final project implementation for the IBM Continuous Integration and Continuous Delivery (CI/CD) course. The objective of this project is to build a robust, automated pipeline that seamlessly integrates code changes, enforces code quality, and deploys the application to a Red Hat OpenShift cluster.
 
-[Continuous Integration and Continuous Delivery (CI/CD) course offered Skills Network IBM Developer](https://www.coursera.org/learn/continuous-integration-and-continuous-delivery-ci-cd)
+## Technology Stack
+* **Version Control:** Git & GitHub
+* **Continuous Integration (CI):** GitHub Actions
+* **Continuous Delivery (CD):** Tekton Pipelines
+* **Container Orchestration:** Red Hat OpenShift / Kubernetes
+* **Code Quality & Testing:** Flake8 (Linting), Nose (Unit Testing)
 
-## Usage
+## Pipeline Architecture
 
-This repository is to be used as a template to create your own repository in your own GitHub account. No need to Fork it as it has been set up as a Template. This will avoid confusion when making Pull Requests in the future.
+### 1. Continuous Integration (GitHub Actions)
+The CI workflow is defined in the `.github/workflows/` directory. It is configured to trigger automatically on push events to the repository. The workflow performs the following automated steps:
+* Provisions a continuous integration environment.
+* Installs all necessary project dependencies.
+* **Linting:** Executes code quality checks to enforce stylistic consistency and identify syntactical errors.
+* **Unit Testing:** Runs the automated test suite to ensure application logic remains intact after modifications.
 
-From the GitHub **Code** page, press the green **Use this template** button to create your own repository from this template.
-
-Name your repo: `ci-cd-final-project`.
-
-## Setup
-
-After entering the lab environment you will need to run the `setup.sh` script in the `./bin` folder to install the prerequisite software.
-
-```bash
-bash bin/setup.sh
-```
-
-Then you must exit the shell and start a new one for the Python virtual environment to be activated.
-
-```bash
-exit
-```
-
-## Tasks
-
-
-## License
-
-Licensed under the Apache License. See [LICENSE](/LICENSE)
+### 2. Continuous Delivery (Tekton on OpenShift)
+The CD pipeline is defined within the `.tekton/` directory. It is executed on an OpenShift Kubernetes cluster and orchestrates the deployment process:
+* **Workspace Initialization:** Clones the repository into the pipeline workspace.
+* **Pre-deployment Checks:** Executes `cleanup` tasks and runs automated tests directly within the cluster environment.
+* **Build & Deploy:** Containerizes the application and deploys it to the OpenShift environment, utilizing PersistentVolumeClaims (PVCs) for state management.
 
 ## Author
-
-Skills Network
-
-## <h3 align="center"> © IBM Corporation 2023. All rights reserved. <h3/>
+Ashish Khatri
